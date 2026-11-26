@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+# app-written editor files
+jsconfig.json
+*.d.ts
+# never commit settings, state or logs
+config.json
+state.json
+events.jsonl
+*.log
