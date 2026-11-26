@@ -37,7 +37,7 @@ import subprocess
 import sys
 import time
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 NAME = "claude-scheduler"
 HOME = os.path.expanduser("~")
 
@@ -288,8 +288,9 @@ def kick(st):
     if not claude:
         return False, None, "claude is not on PATH"
     try:
+        # No transcript: a kick every few hours would otherwise pile them up.
         p = subprocess.run([claude, "-p", "Reply with only: ok", "--model", "haiku",
-                            "--output-format", "stream-json", "--verbose"],
+                            "--output-format", "stream-json", "--verbose", "--no-session-persistence"],
                            capture_output=True, text=True, timeout=180, cwd=HOME)
     except (OSError, subprocess.TimeoutExpired) as e:
         return False, None, str(e)
